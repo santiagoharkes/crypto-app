@@ -6,4 +6,5 @@ export const TitleStyled = styled.p`
   font-weight: 400;
   padding: 10px;
   border-bottom: 1px solid ${(props) => props.theme.colors.border};
+  margin: 20px 0;
 `;

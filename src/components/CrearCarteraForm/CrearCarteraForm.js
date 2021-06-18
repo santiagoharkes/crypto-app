@@ -3,7 +3,16 @@ import { v4 as uuidv4 } from "uuid";
 
 import { useTransfers } from "../../context/Transfers/TransfersContext";
 
-function CrearCarteraForm() {
+import {
+  FormContainer,
+  Form,
+  InputStyled,
+  AgregarCarteraButton,
+  AgregarDineroContainer,
+  CancelarButton,
+} from "./CrearCarteraFormStyles";
+
+function CrearCarteraForm({ setAgregarCartera }) {
   const { crearCartera } = useTransfers();
   const [cartera, setCartera] = useState({
     nombre: "",
@@ -20,6 +29,8 @@ function CrearCarteraForm() {
     };
 
     crearCartera(objetoCartera);
+
+    setAgregarCartera(false);
   };
 
   const onChange = (e) => {
@@ -27,12 +38,29 @@ function CrearCarteraForm() {
   };
 
   return (
-    <div>
-      <form action="" onSubmit={agregarCartera}>
-        <input type="text" name="nombre" id="nombre" onChange={onChange} />
-        <button>Agregar</button>
-      </form>
-    </div>
+    <FormContainer>
+      <Form action="" onSubmit={agregarCartera}>
+        <label htmlFor="nombre">Nombre de la cartera:</label>
+        <InputStyled
+          type="text"
+          name="nombre"
+          id="nombre"
+          placeholder="Agrega una cartera..."
+          onChange={onChange}
+        />
+        <AgregarDineroContainer>
+          <CancelarButton
+            type="button"
+            onClick={() => setAgregarCartera(false)}
+          >
+            Cancelar
+          </CancelarButton>
+          <AgregarCarteraButton type="submit">
+            Agregar Cartera
+          </AgregarCarteraButton>
+        </AgregarDineroContainer>
+      </Form>
+    </FormContainer>
   );
 }
 

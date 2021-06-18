@@ -21,7 +21,6 @@ export const DineroDisponibleCard = styled.article`
   width: 100%;
   max-width: 300px;
   border-radius: 10px;
-  margin: 10px 0;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -71,6 +70,11 @@ export const AgregarInput = styled.input`
   border-radius: 20px;
   border: none;
   padding: 10px;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 11px #0000001c;
+  }
 `;
 
 export const ErrorInput = styled.p`
@@ -94,10 +98,22 @@ export const CancelarButton = styled(DineroButtonStyled)`
   }
 `;
 
+export const AgregarCarteraButton = styled.button`
+  background: ${(props) => props.theme.colors.text};
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 150px;
+  cursor: pointer;
+  color: ${(props) => props.theme.colors.bg};
+  margin: 0 10px;
+`;
+
 export const CarterasContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
+  padding: 20px 0;
 `;
 
 export const CarteraCard = styled(DineroDisponibleCard)`
@@ -117,4 +133,5 @@ export const CarteraCard = styled(DineroDisponibleCard)`
 
 export const NoHayCarteras = styled.p`
   padding: 20px;
+  text-align: center;
 `;

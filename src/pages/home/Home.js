@@ -18,6 +18,7 @@ import {
   ErrorInput,
   Form,
   NoHayCarteras,
+  AgregarCarteraButton,
 } from "./HomeStyles";
 
 function Home() {
@@ -25,6 +26,7 @@ function Home() {
   const [agregarMode, setAgregarMode] = useState(false);
   const [dineroInput, setDineroInput] = useState("");
   const [errorInput, setErrorInput] = useState(false);
+  const [agregarCartera, setAgregarCartera] = useState(false);
 
   return (
     <div>
@@ -81,7 +83,19 @@ function Home() {
       </SubSectionContainer>
 
       <SubSectionContainer>
-        <TitleStyled>Mis carteras</TitleStyled>
+        <TitleStyled>
+          Mis carteras
+          <AgregarCarteraButton
+            onClick={() => setAgregarCartera(!agregarCartera)}
+          >
+            Agregar Cartera
+          </AgregarCarteraButton>
+        </TitleStyled>
+
+        {agregarCartera && (
+          <CrearCarteraForm setAgregarCartera={setAgregarCartera} />
+        )}
+
         {carteras.length === 0 && (
           <NoHayCarteras>No hay carteras, agrega una!</NoHayCarteras>
         )}
@@ -101,7 +115,6 @@ function Home() {
             })}
           </CarterasContainer>
         )}
-        <CrearCarteraForm />
       </SubSectionContainer>
     </div>
   );
