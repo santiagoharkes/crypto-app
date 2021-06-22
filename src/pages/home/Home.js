@@ -110,9 +110,9 @@ function Home() {
           <CarterasContainer>
             {carteras.map((valor) => {
               const precioCartera =
-                valor.compras.length === 0
+                valor.monedas.length === 0
                   ? 0
-                  : valor.compras.reduce(
+                  : valor.monedas.reduce(
                       (acum, actual) => acum + actual.precio,
                       0
                     );

@@ -14,6 +14,7 @@ const TransfersContext = createContext({});
 //           id: "btc",
 //           nombre: "Bitcoin",
 //           cantidad: 0.00045,
+//           precio: 500
 //         },
 //       ],
 //       compras: [
@@ -83,10 +84,20 @@ export const TransfersProvider = ({ children }) => {
     dispatch({ type: "REMOVE_CARTERA", payload });
   };
 
+  const buyCrypto = (payload) => {
+    dispatch({ type: "BUY_CRYPTO", payload });
+  };
+
+  const sellCrypto = (payload) => {
+    dispatch({ type: "SELL_CRYPTO", payload });
+  };
+
   const value = {
     agregarDinero,
     crearCartera,
     removeCartera,
+    buyCrypto,
+    sellCrypto,
     ...state,
   };
 
