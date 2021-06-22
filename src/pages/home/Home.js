@@ -1,5 +1,9 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import CrearCarteraForm from "../../components/CrearCarteraForm/CrearCarteraForm";
+import { useCarteraActual } from "../../context/CarteraActual/CarteraActualContext";
+
+import { RiCloseFill } from "react-icons/ri";
 
 import { useTransfers } from "../../context/Transfers/TransfersContext";
 import { TitleStyled } from "../../styles/utils/Title";
@@ -19,10 +23,13 @@ import {
   Form,
   NoHayCarteras,
   AgregarCarteraButton,
+  CloseIcon,
 } from "./HomeStyles";
 
 function Home() {
-  const { dineroDisponible, carteras, agregarDinero } = useTransfers();
+  const { dineroDisponible, carteras, agregarDinero, removeCartera } =
+    useTransfers();
+  const { setCarteraActual } = useCarteraActual();
   const [agregarMode, setAgregarMode] = useState(false);
   const [dineroInput, setDineroInput] = useState("");
   const [errorInput, setErrorInput] = useState(false);
@@ -102,14 +109,27 @@ function Home() {
         {carteras.length > 0 && (
           <CarterasContainer>
             {carteras.map((valor) => {
+              const precioCartera =
+                valor.compras.length === 0
+                  ? 0
+                  : valor.compras.reduce(
+                      (acum, actual) => acum + actual.precio,
+                      0
+                    );
+
               return (
                 <CarteraCard key={valor.id}>
+                  <CloseIcon onClick={() => removeCartera(valor.id)} />
                   <DineroCartTitle>{valor.nombre}</DineroCartTitle>
-                  <DineroCantidadTitle>${dineroDisponible}</DineroCantidadTitle>
+                  <DineroCantidadTitle>${precioCartera}</DineroCantidadTitle>
                   <DineroCartTitle>
                     Cantidad de activos: {valor.monedas.length}
                   </DineroCartTitle>
-                  <DineroButtonStyled>Ingresar</DineroButtonStyled>
+                  <Link to="/cartera">
+                    <DineroButtonStyled onClick={() => setCarteraActual(valor)}>
+                      Ingresar
+                    </DineroButtonStyled>
+                  </Link>
                 </CarteraCard>
               );
             })}

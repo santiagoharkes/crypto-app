@@ -79,9 +79,14 @@ export const TransfersProvider = ({ children }) => {
     dispatch({ type: "CREAR_CARTERA", payload });
   };
 
+  const removeCartera = (payload) => {
+    dispatch({ type: "REMOVE_CARTERA", payload });
+  };
+
   const value = {
     agregarDinero,
     crearCartera,
+    removeCartera,
     ...state,
   };
 

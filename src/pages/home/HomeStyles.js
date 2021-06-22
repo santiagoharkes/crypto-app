@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { RiCloseFill } from "react-icons/ri";
 
 export const SubSectionContainer = styled.div`
   margin: 10px 0;
@@ -129,6 +130,33 @@ export const CarteraCard = styled(DineroDisponibleCard)`
     #f5af19 0%,
     #f12711 100%
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  position: relative;
+`;
+
+export const RemoveCard = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 45px;
+  height: 45px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > svg {
+    width: 45px;
+    height: 45px;
+  }
+`;
+
+export const CloseIcon = styled(RiCloseFill)`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 `;
 
 export const NoHayCarteras = styled.p`

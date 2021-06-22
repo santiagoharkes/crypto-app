@@ -9,6 +9,7 @@ import Layout from "./components/Layout/Layout";
 
 // Context
 import { useTheme } from "./context/theme/ThemeContext";
+import Cartera from "./pages/cartera/Cartera";
 
 function Routes() {
   const { ...state } = useTheme();
@@ -19,6 +20,7 @@ function Routes() {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/holas" component={Holas} />
+          <Route exact path="/cartera" component={Cartera} />
         </Switch>
       </Layout>
     </ThemeProvider>
