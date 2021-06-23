@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import CoinCard from "../../components/CoinCard/CoinCard";
 import { useAxios } from "../../context/axios/useAxios";
 import { useCarteraActual } from "../../context/CarteraActual/CarteraActualContext";
+import { useTransfers } from "../../context/Transfers/TransfersContext";
 import { TitleStyled } from "../../styles/utils/Title";
 import { SubSectionContainer } from "../home/HomeStyles";
 
@@ -10,6 +11,7 @@ import { CoinCardContainer } from "./CarteraStyles";
 
 function Cartera() {
   const { carteraActual } = useCarteraActual();
+  const { carteras } = useTransfers();
   const axios = useAxios();
 
   const fetchCoins = () => {
@@ -24,11 +26,17 @@ function Cartera() {
     isError: coinsError,
   } = useQuery("coins", fetchCoins);
 
+  const cartera = carteras.find((cartera) => cartera.id === carteraActual.id);
+
   return (
     <div>
       <SubSectionContainer>
         <TitleStyled>Activos de la cartera {carteraActual.nombre}</TitleStyled>
-        {carteraActual.monedas.length === 0 && <p>No hay monedas!</p>}
+        {cartera && cartera.monedas.length === 0 ? (
+          <p>No hay monedas!</p>
+        ) : (
+          cartera.monedas.map((moneda) => <p>{moneda.nombre}</p>)
+        )}
       </SubSectionContainer>
 
       <SubSectionContainer>
@@ -47,29 +55,6 @@ function Cartera() {
             ))}
           </CoinCardContainer>
         )}
-
-        {/* <GridRowStyled first>
-          <ColumnStyled>Moneda</ColumnStyled>
-          <ColumnStyled>Precio</ColumnStyled>
-          <ColumnStyled>% 24h</ColumnStyled>
-          <ColumnStyled>Comprar/Vender</ColumnStyled>
-        </GridRowStyled>
-        {coinsLoading && <h1>Loading...</h1>}
-        {!coinsLoading &&
-          coins?.data?.map((valor) => (
-            <GridRowStyled>
-              <ColumnStyled>{valor.name}</ColumnStyled>
-              <ColumnStyled>$ {valor.current_price}</ColumnStyled>
-              <ColumnStyled
-                direction={
-                  valor.price_change_percentage_24h > 0 ? "up" : "down"
-                }
-              >
-                {`${valor.price_change_percentage_24h.toFixed(2)} %`}
-              </ColumnStyled>
-              <ColumnStyled>Comprar/Vender</ColumnStyled>
-            </GridRowStyled>
-          ))} */}
       </SubSectionContainer>
     </div>
   );

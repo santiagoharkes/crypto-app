@@ -7,7 +7,12 @@ import {
   CoinCardImage,
   CoinCardGrid,
   CoinCardItem,
+  ButtonsContainer,
+  ButtonStyled,
+  SubTitleStyled,
 } from "./CoinCardStyles";
+import FormBuy from "./FormBuy";
+import FormSell from "./FormSell";
 
 function CoinCard({ valor, carteraActual }) {
   const { buyCrypto, sellCrypto, dineroDisponible, carteras } = useTransfers();
@@ -15,6 +20,12 @@ function CoinCard({ valor, carteraActual }) {
   const carteraActualUpdated = carteras.find(
     (cartera) => cartera.id === carteraActual.id
   );
+
+  const monedaEnCartera = carteraActualUpdated.monedas.find(
+    (moneda) => moneda.id === valor.id
+  );
+
+  console.log({ monedaEnCartera });
 
   const [buy, setBuy] = useState(false);
   const [sell, setSell] = useState(false);
@@ -39,7 +50,8 @@ function CoinCard({ valor, carteraActual }) {
     setDineroDisponibleError("");
   };
 
-  const buyCryptoButton = () => {
+  const buyCryptoButton = (e) => {
+    e.preventDefault();
     if (inputNumber > dineroDisponible) {
       setDineroDisponibleError("No tienes tanto dinero disponible!");
       return;
@@ -59,7 +71,8 @@ function CoinCard({ valor, carteraActual }) {
     onCancelClick();
   };
 
-  const sellCryptoButton = () => {
+  const sellCryptoButton = (e) => {
+    e.preventDefault();
     const cryptoQuantity = carteraActualUpdated.monedas.find(
       (moneda) => moneda.id === valor.id
     );
@@ -91,48 +104,54 @@ function CoinCard({ valor, carteraActual }) {
       } (${valor.symbol.toUpperCase()})`}</CoinCardItem>
       <CoinCardGrid>
         <CoinCardItem gridArea="precioTitle">Precio</CoinCardItem>
-        <CoinCardItem gridArea="precio">$ {valor.current_price}</CoinCardItem>
+        <CoinCardItem center gridArea="precio">
+          $ {valor.current_price}
+        </CoinCardItem>
         <CoinCardItem gridArea="percTitle">% 24h</CoinCardItem>
         <CoinCardItem
           gridArea="perc"
+          center
           direction={valor.price_change_percentage_24h > 0 ? "up" : "down"}
         >
           {`${valor.price_change_percentage_24h.toFixed(2)} %`}
         </CoinCardItem>
-        <CoinCardItem onClick={onSellClick} gridArea="sell">
-          Vender
-        </CoinCardItem>
-        <CoinCardItem onClick={onBuyClick} gridArea="buy">
-          Comprar
-        </CoinCardItem>
       </CoinCardGrid>
 
+      {!buy && !sell && (
+        <ButtonsContainer>
+          <ButtonStyled sell onClick={onSellClick} gridArea="sell">
+            Vender
+          </ButtonStyled>
+          <ButtonStyled buy onClick={onBuyClick} gridArea="buy">
+            Comprar
+          </ButtonStyled>
+        </ButtonsContainer>
+      )}
+
       {buy && (
-        <>
-          <input
-            type="number"
-            onChange={(e) => {
-              setDineroDisponibleError("");
-              setInputNUmber(e.target.value);
-            }}
-          />
-          <button onClick={onCancelClick}>Cancelar</button>
-          <button onClick={buyCryptoButton}>Comprar</button>
-        </>
+        <FormBuy
+          buyCryptoButton={buyCryptoButton}
+          onCancelClick={onCancelClick}
+          setDineroDisponibleError={setDineroDisponibleError}
+          setInputNUmber={setInputNUmber}
+          dineroDisponible={dineroDisponible}
+        />
       )}
 
       {sell && (
-        <>
-          <input
-            type="number"
-            onChange={(e) => setInputNUmber(e.target.value)}
-          />
-          <button onClick={onCancelClick}>Cancelar</button>
-          <button onClick={sellCryptoButton}>Vender</button>
-        </>
+        <FormSell
+          sellCryptoButton={sellCryptoButton}
+          valor={valor}
+          onCancelClick={onCancelClick}
+          setDineroDisponibleError={setDineroDisponibleError}
+          setInputNUmber={setInputNUmber}
+          monedaEnCartera={monedaEnCartera}
+        />
       )}
 
-      {dineroDisponibleError && <p>{dineroDisponibleError}</p>}
+      {dineroDisponibleError && (
+        <SubTitleStyled>{dineroDisponibleError}</SubTitleStyled>
+      )}
     </CoinCardStyled>
   );
 }

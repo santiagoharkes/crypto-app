@@ -26,8 +26,8 @@ export const CoinCardStyled = styled.div`
 export const CoinCardGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-areas: "precioTitle precio" "percTitle perc" "sell buy";
+  grid-template-rows: repeat(2, 1fr);
+  grid-template-areas: "precioTitle precio" "percTitle perc";
   width: 100%;
   gap: 5px;
   border: 1px solid ${(props) => props.theme.colors.border};
@@ -44,11 +44,82 @@ export const CoinCardItem = styled.div`
   background: ${(props) =>
     props.direction
       ? props.direction === "up"
-        ? "green"
+        ? props.theme.colors.green
         : "red"
       : "transparent"};
   border-radius: 10px;
   padding: 5px 0;
   color: ${(props) => (props.direction ? "white" : props.theme.colors.text)};
-  text-align: ${(props) => (props.direction ? "center" : "unset")};
+  text-align: ${(props) => (props.center ? "center" : "unset")};
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: wrap;
+`;
+
+export const ButtonStyled = styled.button`
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  min-width: 120px;
+  flex: 1;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid
+    ${(props) =>
+      props.sell
+        ? props.theme.colors.red
+        : props.buy
+        ? props.theme.colors.green
+        : props.theme.colors.white};
+  color: ${(props) =>
+    props.sell
+      ? props.theme.colors.red
+      : props.buy
+      ? props.theme.colors.green
+      : props.theme.colors.white};
+
+  &:hover {
+    background: ${(props) =>
+      props.sell
+        ? props.theme.colors.red
+        : props.buy
+        ? props.theme.colors.green
+        : props.theme.colors.white};
+    color: white;
+  }
+`;
+
+export const FormStyled = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+`;
+
+export const InputStyled = styled.input`
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 11px #0000001c;
+  }
+`;
+
+export const LabelStyled = styled.label`
+  color: ${(props) => props.theme.colors.white};
+`;
+
+export const SubTitleStyled = styled.p`
+  text-align: center;
+  font-size: 14px;
+  color: ${(props) => props.theme.colors.text};
+  opacity: 0.5;
 `;
