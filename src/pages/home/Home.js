@@ -1,9 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import CarteraCard from "../../components/CarteraCard/CarteraCard";
 import CrearCarteraForm from "../../components/CrearCarteraForm/CrearCarteraForm";
-import { useCarteraActual } from "../../context/CarteraActual/CarteraActualContext";
-
-import { RiCloseFill } from "react-icons/ri";
 
 import { useTransfers } from "../../context/Transfers/TransfersContext";
 import { TitleStyled } from "../../styles/utils/Title";
@@ -11,11 +8,7 @@ import {
   SubSectionContainer,
   DineroDisponibleContainer,
   DineroDisponibleCard,
-  DineroCartTitle,
-  DineroCantidadTitle,
-  DineroButtonStyled,
   CarterasContainer,
-  CarteraCard,
   AgregarDineroContainer,
   CancelarButton,
   AgregarInput,
@@ -23,13 +16,17 @@ import {
   Form,
   NoHayCarteras,
   AgregarCarteraButton,
-  CloseIcon,
+  DineroButtonStyled,
 } from "./HomeStyles";
 
+import {
+  DineroCartTitle,
+  DineroCantidadTitle,
+} from "../../components/CarteraCard/CarteraStyles";
+import { formatPrice } from "../../utils/formatPrice";
+
 function Home() {
-  const { dineroDisponible, carteras, agregarDinero, removeCartera } =
-    useTransfers();
-  const { setCarteraActual } = useCarteraActual();
+  const { dineroDisponible, carteras, agregarDinero } = useTransfers();
   const [agregarMode, setAgregarMode] = useState(false);
   const [dineroInput, setDineroInput] = useState("");
   const [errorInput, setErrorInput] = useState(false);
@@ -42,7 +39,9 @@ function Home() {
         <DineroDisponibleContainer>
           <DineroDisponibleCard>
             <DineroCartTitle>Este es tu dinero disponible:</DineroCartTitle>
-            <DineroCantidadTitle>${dineroDisponible}</DineroCantidadTitle>
+            <DineroCantidadTitle>
+              {formatPrice(dineroDisponible)}
+            </DineroCantidadTitle>
             {!agregarMode && (
               <DineroButtonStyled onClick={() => setAgregarMode(!agregarMode)}>
                 Agregar dinero
@@ -66,6 +65,7 @@ function Home() {
                   type="number"
                   name=""
                   min="0"
+                  step="0.00000001"
                   id=""
                   value={dineroInput}
                   onChange={(e) => setDineroInput(Number(e.target.value))}
@@ -109,29 +109,7 @@ function Home() {
         {carteras.length > 0 && (
           <CarterasContainer>
             {carteras.map((valor) => {
-              const precioCartera =
-                valor.monedas.length === 0
-                  ? 0
-                  : valor.monedas.reduce(
-                      (acum, actual) => acum + actual.precio,
-                      0
-                    );
-
-              return (
-                <CarteraCard key={valor.id}>
-                  <CloseIcon onClick={() => removeCartera(valor.id)} />
-                  <DineroCartTitle>{valor.nombre}</DineroCartTitle>
-                  <DineroCantidadTitle>${precioCartera}</DineroCantidadTitle>
-                  <DineroCartTitle>
-                    Cantidad de activos: {valor.monedas.length}
-                  </DineroCartTitle>
-                  <Link to="/cartera">
-                    <DineroButtonStyled onClick={() => setCarteraActual(valor)}>
-                      Ingresar
-                    </DineroButtonStyled>
-                  </Link>
-                </CarteraCard>
-              );
+              return <CarteraCard key={valor.id} valor={valor} />;
             })}
           </CarterasContainer>
         )}

@@ -54,3 +54,8 @@ export const CancelarButton = styled(AgregarCarteraButton)`
     border: 1px solid ${(props) => props.theme.colors.red};
   }
 `;
+
+export const InputErrorStyled = styled.p`
+  text-align: center;
+  color: ${(props) => props.theme.colors.red};
+`;

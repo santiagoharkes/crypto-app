@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useCarteraActual } from "../../context/CarteraActual/CarteraActualContext";
 import { useTransfers } from "../../context/Transfers/TransfersContext";
+import { formatPrice } from "../../utils/formatPrice";
 
 import {
   CoinCardStyled,
@@ -24,8 +24,6 @@ function CoinCard({ valor, carteraActual }) {
   const monedaEnCartera = carteraActualUpdated.monedas.find(
     (moneda) => moneda.id === valor.id
   );
-
-  console.log({ monedaEnCartera });
 
   const [buy, setBuy] = useState(false);
   const [sell, setSell] = useState(false);
@@ -57,6 +55,11 @@ function CoinCard({ valor, carteraActual }) {
       return;
     }
 
+    if (!inputNumber || inputNumber <= 0) {
+      setDineroDisponibleError("Por favor, ingrese un monto correcto");
+      return;
+    }
+
     const cryptoQuantity = Number(inputNumber) / Number(valor.current_price);
 
     buyCrypto({
@@ -79,6 +82,11 @@ function CoinCard({ valor, carteraActual }) {
 
     if (inputNumber > cryptoQuantity.cantidad) {
       setDineroDisponibleError("No tenés esa cantidad");
+      return;
+    }
+
+    if (!inputNumber || inputNumber <= 0) {
+      setDineroDisponibleError("Por favor, ingrese una cantidad correcta");
       return;
     }
 
@@ -105,7 +113,7 @@ function CoinCard({ valor, carteraActual }) {
       <CoinCardGrid>
         <CoinCardItem gridArea="precioTitle">Precio</CoinCardItem>
         <CoinCardItem center gridArea="precio">
-          $ {valor.current_price}
+          {formatPrice(valor.current_price)}
         </CoinCardItem>
         <CoinCardItem gridArea="percTitle">% 24h</CoinCardItem>
         <CoinCardItem

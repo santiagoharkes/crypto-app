@@ -25,6 +25,7 @@ function FormSell({
           <InputStyled
             type="number"
             step="0.00000001"
+            min="0.0000000"
             name="number"
             onChange={(e) => {
               setDineroDisponibleError("");

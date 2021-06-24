@@ -22,3 +22,15 @@ export const CoinCardContainer = styled.div`
   gap: 15px;
   place-items: center;
 `;
+
+export const AssetsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  width: 100%;
+  gap: 10px;
+
+  @media screen and (max-width: 690px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, auto);
+  }
+`;

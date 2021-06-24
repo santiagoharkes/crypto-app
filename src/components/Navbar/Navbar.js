@@ -21,9 +21,6 @@ function Navbar() {
         <MenuItemStyled>
           <Link to="/">Home</Link>
         </MenuItemStyled>
-        <MenuItemStyled>
-          <Link to="/holas">Holas</Link>
-        </MenuItemStyled>
         <MenuItemStyled onClick={changeTheme}>Change Theme</MenuItemStyled>
       </NavbarMenuStyled>
     </NavbarContainerStyled>

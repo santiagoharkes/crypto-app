@@ -4,7 +4,6 @@ import { Switch, Route } from "react-router-dom";
 
 // Components
 import Home from "./pages/home/Home";
-import Holas from "./pages/Holas";
 import Layout from "./components/Layout/Layout";
 
 // Context
@@ -19,7 +18,6 @@ function Routes() {
       <Layout>
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/holas" component={Holas} />
           <Route exact path="/cartera" component={Cartera} />
         </Switch>
       </Layout>

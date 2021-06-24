@@ -114,7 +114,7 @@ export const InputStyled = styled.input`
 `;
 
 export const LabelStyled = styled.label`
-  color: ${(props) => props.theme.colors.white};
+  color: ${(props) => props.theme.colors.text};
 `;
 
 export const SubTitleStyled = styled.p`

@@ -12,6 +12,21 @@ export const TransfersReducer = (state, action) => {
         carteras: [...state.carteras, action.payload],
       };
 
+    case "EDIT_CARTERA":
+      return {
+        ...state,
+        carteras: state.carteras.map((cartera) => {
+          if (cartera.id === action.payload.id) {
+            return {
+              ...cartera,
+              nombre: action.payload.nombre,
+            };
+          } else {
+            return cartera;
+          }
+        }),
+      };
+
     case "REMOVE_CARTERA":
       const newCarteras = state.carteras.filter(
         (valor) => valor.id !== action.payload
@@ -22,8 +37,6 @@ export const TransfersReducer = (state, action) => {
       };
 
     case "BUY_CRYPTO":
-      console.log(typeof action.payload.precio);
-      console.log(typeof action.payload.cantidad);
       return {
         ...state,
         dineroDisponible:

@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "react-query";
+import { useHistory } from "react-router";
+import CoinAsset from "../../components/CoinAsset/CoinAsset";
 import CoinCard from "../../components/CoinCard/CoinCard";
+import CoinsChart from "../../components/CoinsChart.js/CoinsChart";
 import { useAxios } from "../../context/axios/useAxios";
 import { useCarteraActual } from "../../context/CarteraActual/CarteraActualContext";
 import { useTransfers } from "../../context/Transfers/TransfersContext";
 import { TitleStyled } from "../../styles/utils/Title";
 import { SubSectionContainer } from "../home/HomeStyles";
 
-import { CoinCardContainer } from "./CarteraStyles";
+import { CoinCardContainer, AssetsContainer } from "./CarteraStyles";
 
 function Cartera() {
   const { carteraActual } = useCarteraActual();
   const { carteras } = useTransfers();
   const axios = useAxios();
+  const history = useHistory();
 
   const fetchCoins = () => {
     return axios.get(
@@ -28,14 +32,27 @@ function Cartera() {
 
   const cartera = carteras.find((cartera) => cartera.id === carteraActual.id);
 
+  useEffect(() => {
+    if (Object.keys(carteraActual).length === 0) {
+      history.push("/");
+    }
+  }, [carteraActual, history]);
+
   return (
     <div>
       <SubSectionContainer>
         <TitleStyled>Activos de la cartera {carteraActual.nombre}</TitleStyled>
         {cartera && cartera.monedas.length === 0 ? (
-          <p>No hay monedas!</p>
+          <p style={{ textAlign: "center" }}>No tienes monedas compradas</p>
         ) : (
-          cartera.monedas.map((moneda) => <p>{moneda.nombre}</p>)
+          <AssetsContainer>
+            <div>
+              {cartera?.monedas?.map((moneda) => (
+                <CoinAsset key={moneda.id} moneda={moneda} coins={coins} />
+              ))}
+            </div>
+            <CoinsChart cartera={cartera} />
+          </AssetsContainer>
         )}
       </SubSectionContainer>
 

@@ -80,6 +80,10 @@ export const TransfersProvider = ({ children }) => {
     dispatch({ type: "CREAR_CARTERA", payload });
   };
 
+  const editCartera = (payload) => {
+    dispatch({ type: "EDIT_CARTERA", payload });
+  };
+
   const removeCartera = (payload) => {
     dispatch({ type: "REMOVE_CARTERA", payload });
   };
@@ -95,6 +99,7 @@ export const TransfersProvider = ({ children }) => {
   const value = {
     agregarDinero,
     crearCartera,
+    editCartera,
     removeCartera,
     buyCrypto,
     sellCrypto,

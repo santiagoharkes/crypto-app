@@ -1,5 +1,7 @@
 import React from "react";
 
+import { formatPrice } from "../../utils/formatPrice";
+
 import {
   ButtonsContainer,
   ButtonStyled,
@@ -22,6 +24,7 @@ function FormBuy({
       <InputStyled
         type="number"
         step="0.00000001"
+        min="0.0000000"
         name="number"
         onChange={(e) => {
           setDineroDisponibleError("");
@@ -30,7 +33,7 @@ function FormBuy({
       />
 
       <SubTitleStyled>
-        El monto disponible es de ${dineroDisponible}
+        El monto disponible es de {formatPrice(dineroDisponible)}
       </SubTitleStyled>
 
       <ButtonsContainer>

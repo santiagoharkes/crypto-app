@@ -1,5 +1,18 @@
 import styled from "styled-components";
-import { RiCloseFill } from "react-icons/ri";
+
+export const DineroButtonStyled = styled.button`
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  max-width: 150px;
+  cursor: pointer;
+
+  &:hover {
+    background: ${(props) => props.theme.colors.black};
+    color: ${(props) => props.theme.colors.white};
+    max-width: 100%;
+  }
+`;
 
 export const SubSectionContainer = styled.div`
   margin: 10px 0;
@@ -29,27 +42,6 @@ export const DineroDisponibleCard = styled.article`
   color: ${(props) => props.theme.colors.white};
 
   @media screen and (max-width: 500px) {
-    max-width: 100%;
-  }
-`;
-
-export const DineroCartTitle = styled.p``;
-
-export const DineroCantidadTitle = styled.p`
-  font-size: 40px;
-  font-weight: 500;
-`;
-
-export const DineroButtonStyled = styled.button`
-  border: none;
-  padding: 10px;
-  border-radius: 10px;
-  max-width: 150px;
-  cursor: pointer;
-
-  &:hover {
-    background: ${(props) => props.theme.colors.black};
-    color: ${(props) => props.theme.colors.white};
     max-width: 100%;
   }
 `;
@@ -117,22 +109,6 @@ export const CarterasContainer = styled.div`
   padding: 20px 0;
 `;
 
-export const CarteraCard = styled(DineroDisponibleCard)`
-  max-width: 100%;
-  background: #f12711; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    140deg,
-    #f5af19 0%,
-    #f12711 100%
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    140deg,
-    #f5af19 0%,
-    #f12711 100%
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  position: relative;
-`;
-
 export const RemoveCard = styled.div`
   position: absolute;
   top: 10px;
@@ -148,15 +124,6 @@ export const RemoveCard = styled.div`
     width: 45px;
     height: 45px;
   }
-`;
-
-export const CloseIcon = styled(RiCloseFill)`
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 25px;
-  height: 25px;
-  cursor: pointer;
 `;
 
 export const NoHayCarteras = styled.p`

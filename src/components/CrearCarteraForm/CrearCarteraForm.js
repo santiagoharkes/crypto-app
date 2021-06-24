@@ -10,10 +10,12 @@ import {
   AgregarCarteraButton,
   AgregarDineroContainer,
   CancelarButton,
+  InputErrorStyled,
 } from "./CrearCarteraFormStyles";
 
 function CrearCarteraForm({ setAgregarCartera }) {
   const { crearCartera } = useTransfers();
+  const [inputError, setInputError] = useState("");
   const [cartera, setCartera] = useState({
     nombre: "",
     monedas: [],
@@ -23,6 +25,12 @@ function CrearCarteraForm({ setAgregarCartera }) {
 
   const agregarCartera = (e) => {
     e.preventDefault();
+
+    if (cartera.nombre.trim() === "") {
+      setInputError("Este campo no puede estar vacío");
+      return;
+    }
+
     const objetoCartera = {
       ...cartera,
       id: uuidv4(),
@@ -34,6 +42,7 @@ function CrearCarteraForm({ setAgregarCartera }) {
   };
 
   const onChange = (e) => {
+    setInputError("");
     setCartera({ ...cartera, [e.target.name]: e.target.value });
   };
 
@@ -48,6 +57,7 @@ function CrearCarteraForm({ setAgregarCartera }) {
           placeholder="Agrega una cartera..."
           onChange={onChange}
         />
+        <InputErrorStyled>{inputError}</InputErrorStyled>
         <AgregarDineroContainer>
           <CancelarButton
             type="button"

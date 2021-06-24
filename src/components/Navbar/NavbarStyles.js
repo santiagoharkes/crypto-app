@@ -28,6 +28,10 @@ export const NavbarMenuStyled = styled.ul`
   list-style: none;
   height: 100%;
   gap: 20px;
+
+  @media screen and (max-width: 690px) {
+    display: none;
+  }
 `;
 
 export const MenuItemStyled = styled.li`

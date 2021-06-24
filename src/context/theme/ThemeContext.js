@@ -26,7 +26,7 @@ export const lightTheme = {
   black: "#212121",
   yellow: "#fbc320",
   subtitle: "#373737",
-  border: "#cacaca3b",
+  border: "#4d4d4d3b",
   green: "#00b714",
   red: "#ff0018",
   orange: "#ff921f",
