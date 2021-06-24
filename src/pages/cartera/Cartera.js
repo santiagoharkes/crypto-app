@@ -1,20 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
 import CoinAsset from "../../components/CoinAsset/CoinAsset";
 import CoinCard from "../../components/CoinCard/CoinCard";
 import CoinsChart from "../../components/CoinsChart.js/CoinsChart";
+import Transfer from "../../components/Transfer/Transfer";
 import { useAxios } from "../../context/axios/useAxios";
 import { useCarteraActual } from "../../context/CarteraActual/CarteraActualContext";
 import { useTransfers } from "../../context/Transfers/TransfersContext";
 import { TitleStyled } from "../../styles/utils/Title";
 import { SubSectionContainer } from "../home/HomeStyles";
 
-import { CoinCardContainer, AssetsContainer } from "./CarteraStyles";
+import {
+  CoinCardContainer,
+  AssetsContainer,
+  InputStyled,
+  SearchContainer,
+  TransfersContainer,
+} from "./CarteraStyles";
 
 function Cartera() {
   const { carteraActual } = useCarteraActual();
   const { carteras } = useTransfers();
+  const [search, setSearch] = useState("");
   const axios = useAxios();
   const history = useHistory();
 
@@ -58,20 +66,47 @@ function Cartera() {
 
       <SubSectionContainer>
         <TitleStyled>Comprar o vender monedas</TitleStyled>
+        <SearchContainer>
+          <p>Buscar moneda:</p>
+          <InputStyled
+            type="text"
+            name=""
+            placeholder="Buscar..."
+            id=""
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </SearchContainer>
 
         {coinsError && <h1>Hubo un error!</h1>}
         {coinsLoading && <h1>Loading...</h1>}
         {!coinsLoading && (
           <CoinCardContainer>
-            {coins?.data?.map((valor) => (
-              <CoinCard
-                key={valor.id}
-                valor={valor}
-                carteraActual={carteraActual}
-              />
-            ))}
+            {search
+              ? coins?.data
+                  ?.filter((mon) =>
+                    mon.name.toUpperCase().includes(search.toUpperCase())
+                  )
+                  .map((valor) => (
+                    <CoinCard
+                      key={valor.id}
+                      valor={valor}
+                      carteraActual={carteraActual}
+                    />
+                  ))
+              : coins?.data?.map((valor) => (
+                  <CoinCard
+                    key={valor.id}
+                    valor={valor}
+                    carteraActual={carteraActual}
+                  />
+                ))}
           </CoinCardContainer>
         )}
+      </SubSectionContainer>
+
+      <SubSectionContainer>
+        <TitleStyled>Transacciones</TitleStyled>
+        <Transfer cartera={cartera} />
       </SubSectionContainer>
     </div>
   );

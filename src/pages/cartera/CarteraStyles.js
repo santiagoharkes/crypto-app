@@ -21,6 +21,7 @@ export const CoinCardContainer = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 15px;
   place-items: center;
+  margin: 20px 0;
 `;
 
 export const AssetsContainer = styled.div`
@@ -33,4 +34,22 @@ export const AssetsContainer = styled.div`
     grid-template-columns: 1fr;
     grid-template-rows: repeat(2, auto);
   }
+`;
+
+export const InputStyled = styled.input`
+  border-radius: 20px;
+  border: none;
+  padding: 10px;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0px 0px 11px #0000001c;
+  }
+`;
+
+export const SearchContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
 `;
