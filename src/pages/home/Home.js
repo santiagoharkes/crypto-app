@@ -1,9 +1,17 @@
 import { useState } from "react";
+
+// Components
 import CarteraCard from "../../components/CarteraCard/CarteraCard";
 import CrearCarteraForm from "../../components/CrearCarteraForm/CrearCarteraForm";
-
-import { useTransfers } from "../../context/Transfers/TransfersContext";
 import { TitleStyled } from "../../styles/utils/Title";
+
+// Hooks & Context
+import { useTransfers } from "../../context/Transfers/TransfersContext";
+
+// Utils
+import { formatPrice } from "../../utils/formatPrice";
+
+// Styles
 import {
   SubSectionContainer,
   DineroDisponibleContainer,
@@ -23,7 +31,6 @@ import {
   DineroCartTitle,
   DineroCantidadTitle,
 } from "../../components/CarteraCard/CarteraStyles";
-import { formatPrice } from "../../utils/formatPrice";
 
 function Home() {
   const { dineroDisponible, carteras, agregarDinero } = useTransfers();
@@ -31,6 +38,30 @@ function Home() {
   const [dineroInput, setDineroInput] = useState("");
   const [errorInput, setErrorInput] = useState(false);
   const [agregarCartera, setAgregarCartera] = useState(false);
+
+  const toggleAgregarMode = () => {
+    setAgregarMode(!agregarMode)
+  }
+
+  const onAgregarSubmit = (e) => {
+    e.preventDefault();
+    if (dineroInput < 0) {
+      setErrorInput(true);
+      return;
+    } else {
+      agregarDinero(dineroInput);
+      setDineroInput("");
+      setAgregarMode(!agregarMode);
+    }
+  }
+
+  const onInputAgregarChange = (e) => {
+    setDineroInput(Number(e.target.value))
+  }
+
+  const toggleAgregarCartera = () => {
+    setAgregarCartera(!agregarCartera)
+  }
 
   return (
     <div>
@@ -43,23 +74,13 @@ function Home() {
               {formatPrice(dineroDisponible)}
             </DineroCantidadTitle>
             {!agregarMode && (
-              <DineroButtonStyled onClick={() => setAgregarMode(!agregarMode)}>
+              <DineroButtonStyled onClick={toggleAgregarMode}>
                 Agregar dinero
               </DineroButtonStyled>
             )}
             {agregarMode && (
               <Form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  if (dineroInput < 0) {
-                    setErrorInput(true);
-                    return;
-                  } else {
-                    agregarDinero(dineroInput);
-                    setDineroInput("");
-                    setAgregarMode(!agregarMode);
-                  }
-                }}
+                onSubmit={onAgregarSubmit}
               >
                 <AgregarInput
                   type="number"
@@ -68,14 +89,14 @@ function Home() {
                   step="0.00000001"
                   id=""
                   value={dineroInput}
-                  onChange={(e) => setDineroInput(Number(e.target.value))}
+                  onChange={onInputAgregarChange}
                 />
 
                 {errorInput && <ErrorInput>Error perri</ErrorInput>}
                 <AgregarDineroContainer>
                   <CancelarButton
                     type="button"
-                    onClick={() => setAgregarMode(!agregarMode)}
+                    onClick={toggleAgregarMode}
                   >
                     Cancelar
                   </CancelarButton>
@@ -93,7 +114,7 @@ function Home() {
         <TitleStyled>
           Mis carteras
           <AgregarCarteraButton
-            onClick={() => setAgregarCartera(!agregarCartera)}
+            onClick={toggleAgregarCartera}
           >
             Agregar Cartera
           </AgregarCarteraButton>

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
+// Hooks & Context
 import { useTransfers } from "../../context/Transfers/TransfersContext";
 
+// Styles
 import {
   FormContainer,
   Form,

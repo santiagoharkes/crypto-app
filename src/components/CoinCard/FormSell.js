@@ -1,5 +1,6 @@
 import React from "react";
 
+// Styles
 import {
   ButtonsContainer,
   ButtonStyled,
@@ -17,6 +18,12 @@ function FormSell({
   setInputNUmber,
   monedaEnCartera,
 }) {
+
+  const onInputChange = (e) => {
+    setDineroDisponibleError("");
+    setInputNUmber(e.target.value);
+  }
+
   return (
     <FormStyled onSubmit={sellCryptoButton}>
       {monedaEnCartera?.cantidad > 0 && (
@@ -27,10 +34,7 @@ function FormSell({
             step="0.00000001"
             min="0.0000000"
             name="number"
-            onChange={(e) => {
-              setDineroDisponibleError("");
-              setInputNUmber(e.target.value);
-            }}
+            onChange={onInputChange}
           />
         </>
       )}

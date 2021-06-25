@@ -1,7 +1,9 @@
 import React from "react";
 
+// Utils
 import { formatPrice } from "../../utils/formatPrice";
 
+//Styles
 import {
   ButtonsContainer,
   ButtonStyled,
@@ -18,6 +20,13 @@ function FormBuy({
   setInputNUmber,
   dineroDisponible,
 }) {
+
+  const onInputChange = (e) => {
+    setDineroDisponibleError("");
+    setInputNUmber(e.target.value);
+  }
+
+
   return (
     <FormStyled onSubmit={buyCryptoButton}>
       <LabelStyled htmlFor="number">Ingrese el monto a comprar:</LabelStyled>
@@ -26,10 +35,7 @@ function FormBuy({
         step="0.00000001"
         min="0.0000000"
         name="number"
-        onChange={(e) => {
-          setDineroDisponibleError("");
-          setInputNUmber(e.target.value);
-        }}
+        onChange={onInputChange}
       />
 
       <SubTitleStyled>

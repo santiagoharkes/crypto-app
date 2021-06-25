@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { useCarteraActual } from "../../context/CarteraActual/CarteraActualContext";
-import { useTransfers } from "../../context/Transfers/TransfersContext";
 import { Link } from "react-router-dom";
 
+// Components
+
+// Hooks & Context
+import { useCarteraActual } from "../../context/CarteraActual/CarteraActualContext";
+import { useTransfers } from "../../context/Transfers/TransfersContext";
+
+// Utils
+import { formatPrice } from "../../utils/formatPrice";
+
+// Styles
 import {
   DineroCartTitle,
   DineroCantidadTitle,
@@ -17,12 +25,12 @@ import {
   EditButtonStyled,
   EditInputErrorStyled,
 } from "./CarteraStyles";
-import { formatPrice } from "../../utils/formatPrice";
 
 function CarteraCard({ valor }) {
+  // Context
   const { removeCartera, editCartera } = useTransfers();
   const { setCarteraActual } = useCarteraActual();
-
+  // States
   const [editMode, setEditMode] = useState(false);
   const [inputEdit, setInputEdit] = useState("");
   const [errorInput, setErrorInput] = useState("");
@@ -83,9 +91,6 @@ function CarteraCard({ valor }) {
           </EditButtonsContainer>
         </EditFormStyled>
       )}
-      {/* <p onClick={() => editCartera({ id: valor.id, nombre: "Pepito" })}>
-        Editar
-      </p> */}
       <DineroCartTitle>{valor.nombre}</DineroCartTitle>
       <DineroCantidadTitle>{formatPrice(precioCartera)}</DineroCantidadTitle>
       <DineroCartTitle>

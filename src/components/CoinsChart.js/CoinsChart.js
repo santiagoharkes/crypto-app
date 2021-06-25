@@ -18,6 +18,10 @@ function CoinsChart({ cartera, coins }) {
           "rgba(75, 192, 192)",
           "rgba(153, 102, 255)",
           "rgba(255, 159, 64)",
+          "rgba(135, 210, 53)",
+          "rgba(115, 36, 218)",
+          "rgb(244, 95, 68)",
+          "rgb(130, 4, 76)"
         ],
         borderColor: [
           "rgba(255, 99, 132, 1)",
@@ -26,6 +30,10 @@ function CoinsChart({ cartera, coins }) {
           "rgba(75, 192, 192, 1)",
           "rgba(153, 102, 255, 1)",
           "rgba(255, 159, 64, 1)",
+          "rgba(135, 210, 53)",
+          "rgba(115, 36, 218)",
+          "rgb(244, 95, 68)",
+          "rgb(130, 4, 76)"
         ],
         borderWidth: 1,
       },

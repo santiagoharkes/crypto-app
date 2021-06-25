@@ -1,7 +1,10 @@
 import React from "react";
+
+// Components
 import { Container } from "../../styles/utils/Container";
 import Navbar from "../Navbar/Navbar";
 
+// Styles
 import { LayoutContainerStyled, PageContainerStyled } from "./LayoutStyles";
 
 function Layout({ children }) {

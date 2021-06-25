@@ -1,7 +1,16 @@
 import React, { useState } from "react";
+
+// Components
+import FormBuy from "./FormBuy";
+import FormSell from "./FormSell";
+
+// Hooks & Context
 import { useTransfers } from "../../context/Transfers/TransfersContext";
+
+// Utils
 import { formatPrice } from "../../utils/formatPrice";
 
+// Styles
 import {
   CoinCardStyled,
   CoinCardImage,
@@ -11,8 +20,6 @@ import {
   ButtonStyled,
   SubTitleStyled,
 } from "./CoinCardStyles";
-import FormBuy from "./FormBuy";
-import FormSell from "./FormSell";
 
 function CoinCard({ valor, carteraActual }) {
   const { buyCrypto, sellCrypto, dineroDisponible, carteras } = useTransfers();

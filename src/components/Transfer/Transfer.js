@@ -1,7 +1,10 @@
 import React from "react";
+
+// Utils
 import { formatDate } from "../../utils/formatDate";
 import { formatPrice } from "../../utils/formatPrice";
 
+// Styles
 import { SubtitleStyled, TransferCard } from "./TransferStyles";
 
 function Transfer({ cartera }) {

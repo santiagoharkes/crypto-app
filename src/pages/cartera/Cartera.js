@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import { useHistory } from "react-router";
+
+// Components
 import CoinAsset from "../../components/CoinAsset/CoinAsset";
 import CoinCard from "../../components/CoinCard/CoinCard";
 import CoinsChart from "../../components/CoinsChart.js/CoinsChart";
 import Transfer from "../../components/Transfer/Transfer";
-import { useAxios } from "../../context/axios/useAxios";
-import { useCarteraActual } from "../../context/CarteraActual/CarteraActualContext";
-import { useTransfers } from "../../context/Transfers/TransfersContext";
 import { TitleStyled } from "../../styles/utils/Title";
 import { SubSectionContainer } from "../home/HomeStyles";
 
+// Hooks & Context
+import { useAxios } from "../../context/axios/useAxios";
+import { useCarteraActual } from "../../context/CarteraActual/CarteraActualContext";
+import { useTransfers } from "../../context/Transfers/TransfersContext";
+
+// Styles
 import {
   CoinCardContainer,
   AssetsContainer,
   InputStyled,
   SearchContainer,
-  TransfersContainer,
 } from "./CarteraStyles";
 
 function Cartera() {
