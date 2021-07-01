@@ -10,10 +10,10 @@ import { SubtitleStyled, TransferCard } from "./TransferStyles";
 function Transfer({ cartera }) {
   return (
     <div>
-      {cartera.compras.length > 0 && (
+      {cartera?.compras?.length > 0 && (
         <>
           <SubtitleStyled>Compras</SubtitleStyled>
-          {cartera.compras.map((valor) => (
+          {cartera?.compras?.map((valor) => (
             <TransferCard buy>
               <p>Fecha: {formatDate(valor.fecha)}</p>
               <p>Moneda: {valor.moneda}</p>
@@ -23,10 +23,10 @@ function Transfer({ cartera }) {
           ))}
         </>
       )}
-      {cartera.ventas.length > 0 && (
+      {cartera?.ventas?.length > 0 && (
         <>
           <SubtitleStyled>Ventas</SubtitleStyled>
-          {cartera.ventas.map((valor) => (
+          {cartera?.ventas?.map((valor) => (
             <TransferCard sell>
               <p>Fecha: {formatDate(valor.fecha)}</p>
               <p>Moneda: {valor.moneda}</p>

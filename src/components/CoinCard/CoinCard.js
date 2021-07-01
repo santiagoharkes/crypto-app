@@ -25,11 +25,11 @@ function CoinCard({ valor, carteraActual }) {
   const { buyCrypto, sellCrypto, dineroDisponible, carteras } = useTransfers();
 
   const carteraActualUpdated = carteras.find(
-    (cartera) => cartera.id === carteraActual.id
+    (cartera) => cartera?.id === carteraActual?.id
   );
 
   const monedaEnCartera = carteraActualUpdated.monedas.find(
-    (moneda) => moneda.id === valor.id
+    (moneda) => moneda?.id === valor?.id
   );
 
   const [buy, setBuy] = useState(false);
